@@ -3,7 +3,7 @@ import path from 'path';
 import express from 'express';
 import React from 'react';
 import bodyParser from 'body-parser';
-import routes from '../src/routes';
+import routes from './src/routes';
 
 // SSR
 import {renderToString} from 'react-dom/server';
@@ -14,10 +14,10 @@ import RoutingContext from 'react-router/lib/RoutingContext';
 let app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use("/static", express.static(path.resolve(__dirname + "/../static")));
-console.log(path.resolve(__dirname + "/../static"))
+app.use("/static", express.static(path.join(__dirname, "static")));
+
 app.use((req, res)=>{
-    let rootHtml = fs.readFileSync(path.resolve(__dirname + "/../index.html"), { encoding: 'utf8'});
+    let rootHtml = fs.readFileSync(path.join(__dirname, "index.html"), { encoding: 'utf8'});
     match({routes: routes, location: req.url}, (err, redirectLocation, renderProps)=>{
         if(err) return res.status(500).send(error);
         if(redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
@@ -33,5 +33,5 @@ app.use((req, res)=>{
 });
 
 app.listen(process.env.PORT || 3000, (err)=>{
-    console.log("Listening on port "+ process.env.PORT || 3000);
+    console.log("Listening on port "+ (process.env.PORT || 3000));
 })
