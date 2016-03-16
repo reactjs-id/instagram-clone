@@ -4,6 +4,7 @@ import {Grid} from 'react-bootstrap';
 import faker from 'faker';
 import Home from './pages/Home';
 import Header from './pages/Header';
+import Footer from './pages/Footer';
 
 const posts = [];
 for (var i = 10; i >= 0; i--) {
@@ -39,11 +40,12 @@ export default class Container extends React.Component {
     return (
       <Grid>
         <Header data={this.state.posts[1].profile} />
-        {/*
-          this.state.posts.map((obj, index) =>
+        {
+          /*this.state.posts.map((obj, index) =>
             <Home key={index} name={obj.profile.name}/>
-          )
-        */}
+          )*/
+        }
+        <Footer />
       </Grid>
     );
   }
